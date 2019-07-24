@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Vue</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+
+	<style type="text/css">
+		*{
+			font-size: 100%;
+			font-family: sans-serif;
+		}
+		form{
+			border: 2px solid black;
+			width: 700px;
+			padding: 15px;
+		}
+		input{
+			margin: 2px;
+			margin-right: 10px;
+		}
+		h1{
+			text-align: center;
+		}
+		textarea, input{
+			width: 300px
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div id="app" >
+		<div v-for="(data, index) in result" >
+	        <img :src="data.Poster"  style="height: 250px"  />
+	        <h3> {{data.Title}} </h3>
+	        <hr>
+		</div>
+	</div>
+
+
+	<script>
+
+		new Vue({
+			el: '#app',
+			data: { 
+				result:""
+			},
+			created: function() {
+					axios.get('http://www.omdbapi.com/?apikey=e0620bd4&s=harry%20potter')
+					.then( res =>{
+		                this.result =  res.data.Search;
+		                // console.log("res is  =>", this.result);
+          			});
+			}
+		})
+
+	</script>
+
+	<!-- form -->
+
+	<form>
+		<h1>ADD A MOVIE</h1>
+		<hr>
+		<div id="form-app">
+			Enter Title:<br>
+			 <input id="tit" v-model="title"></input><br>
+			Enter Plot:<br>
+			 <textarea id="plt" v-model="plot" ></textarea><br>
+			Enter Actors:<br>
+			 <input id="act" v-model="actors" ></input><br>
+			Enter Director:<br>
+			 <input id="dir" v-model="director" ></input><br>
+			Enter Released date:<br>
+			 <input id="rel" v-model="released" ></input><br>
+			Enter Writers:<br>
+			 <input id="wri" v-model="writer" ></input><br>
+			Enter Languages:<br>
+			 <input id="lan" v-model="language" ></input><br>
+			Enter Imdb score:<br>
+			 <input id="imd" v-model="imdb" ></input><br><br>
+
+			 <hr>
+			<h1>Your input</h1>
+			<hr>
+
+			<p>Title: {{ title }}</p>
+			<p>Plot: {{ plot }}</p>
+			<p>Actors: {{ actors }}</p>
+			<p>Director: {{ director }}</p>
+			<p>Released: {{ released }}</p>
+			<p>Writer: {{ writer }}</p>
+			<p>language: {{ language }}</p>
+			<p>Imdb: {{ imdb }}</p>
+		</div>
+	</form>
+
+	<script>
+
+		new Vue({
+			el: '#form-app',
+			data: {title: "" , plot : "", actors : "", director : "", released : "", writer : "", language : "", imdb : ""}
+		})
+
+	</script>
+
+</body>
+</html>
