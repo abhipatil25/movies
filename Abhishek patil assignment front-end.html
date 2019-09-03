@@ -58,7 +58,7 @@
 			});
 
 
-			$('body').delegate('a.movie', 'click', function(){
+			$('body').on('click', 'a.movie', function(){
 				var data = $(this).attr('data-title');
 				var that = this;
 				$.ajax({
